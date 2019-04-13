@@ -18,7 +18,7 @@ resource "hcloud_server" "server-runners" {
   ssh_keys    = ["${hcloud_ssh_key.default.name}"]
   user_data    = "${file("deploy2.sh")}"
 }
-output "public_ip4-1" {
+output "public_server-runners" {
   value = "${hcloud_server.server-runners.ipv4_address}"
 }
 ###----------------------------
@@ -29,7 +29,7 @@ resource "hcloud_server" "server1" {
   ssh_keys    = ["${hcloud_ssh_key.default.name}"]
   user_data    = "${file("deploy.sh")}"
 }
-output "public_ip4-1" {
+output "public_server1" {
   value = "${hcloud_server.server1.ipv4_address}"
 }
 ###----------------------------
@@ -40,7 +40,7 @@ resource "hcloud_server" "server2" {
   ssh_keys    = ["${hcloud_ssh_key.default.name}"]
   user_data    = "${file("deploy.sh")}"
 }
-output "public_ip4-2" {
+output "public_server2" {
   value = "${hcloud_server.server2.ipv4_address}"
 }
 ###----------------------------

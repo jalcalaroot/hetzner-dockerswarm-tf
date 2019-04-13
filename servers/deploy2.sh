@@ -26,18 +26,29 @@ chmod +x /usr/local/bin/docker-compose
 
 docker run --restart unless-stopped -d -p 9000:9000 -v /var/run/docker.sock:/docker.sock --name dockerui abh1nav/dockerui:latest -e="/docker.sock"
 
-# runners
-docker run -d --name gitlab-runner-1 --restart always \
-   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
-   -v /var/run/docker.sock:/var/run/docker.sock \
-   gitlab/gitlab-runner:latest
+# docker-enter
+cat > /usr/bin/docker-enter <<- "EOF"
+#!/bin/bash 
+EXPECTED_NUM_ARGS=1;
+if [ "$#" -ne $EXPECTED_NUM_ARGS ]; then
+    # user didn't specify which container ID, assume the latest one
+    CONTAINER_ID=`/usr/bin/docker ps -q --no-trunc | /bin/sed -n 1p`
+    /usr/bin/docker exec -it $CONTAINER_ID env TERM=xterm bash
+elsesudo chmod +x /usr/bin/docker-enter
+    # enter the container the user specified
+    /usr/bin/docker exec -it $1 env TERM=xterm bash
+fi
+EOF
 
-docker run -d --name gitlab-runner-2 --restart always \
-   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
-   -v /var/run/docker.sock:/var/run/docker.sock \
-   gitlab/gitlab-runner:latest
+sudo chmod +x /usr/bin/docker-enter
 
-docker run -d --name gitlab-runner-3 --restart always \
-   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
-   -v /var/run/docker.sock:/var/run/docker.sock \
-   gitlab/gitlab-runner:latest
+# deploy-runner
+docker run -d \
+--name gitlab-runner \
+--restart always \
+-v $HOME/gitlab-runner-volume/config:/etc/gitlab-runner \
+-v /var/run/docker.sock:/var/run/docker.sock \
+gitlab/gitlab-runner:latest
+
+# register runner
+docker exec -i gitlab-runner gitlab-runner register -n --url https://gitlab.com/ --registration-token GmVZvfR54H2uFZecDPNy --executor docker --description "My Docker Runner" --docker-image "docker:latest" --docker-volumes /var/run/docker.sock:/var/run/docker.sock
