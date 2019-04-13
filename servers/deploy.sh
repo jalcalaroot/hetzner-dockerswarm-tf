@@ -25,3 +25,17 @@ chmod +x /usr/local/bin/docker-compose
 # deploy dockerui
 
 docker run --restart unless-stopped -d -p 9000:9000 -v /var/run/docker.sock:/docker.sock --name dockerui abh1nav/dockerui:latest -e="/docker.sock"
+
+sudo chmod +x /usr/bin/docker-enter
+
+# deploy-runner
+docker run -d \
+--name gitlab-runner \
+--restart always \
+-v $HOME/gitlab-runner-volume/config:/etc/gitlab-runner \
+-v /var/run/docker.sock:/var/run/docker.sock \
+gitlab/gitlab-runner:latest
+
+# register runner
+docker exec -i gitlab-runner gitlab-runner register -n --url https://gitlab.com/ --registration-token GmVZvfR54H2uFZecDPNy --executor docker --description "My Docker Runner" --docker-image "docker:latest" --docker-volumes /var/run/docker.sock:/var/run/docker.sock
+
