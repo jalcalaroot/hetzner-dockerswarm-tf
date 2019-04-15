@@ -1,7 +1,7 @@
 image: docker:latest
 variables:
-  REPOSITORY_URL: https://hub.docker.com
-  dc_image_name : jalcalaroot/ansible1
+  REPOSITORY_URL: jalcalaroot
+  dc_image_name : ansible1
   dc_username: jalcalaroot
   dc_password: admin19226543
 services:
