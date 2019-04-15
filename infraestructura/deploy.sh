@@ -37,5 +37,5 @@ docker run -d \
 gitlab/gitlab-runner:latest
 
 # register runner
-docker exec -i gitlab-runner gitlab-runner register -n --url https://gitlab.com/ --registration-token GmVZvfR54H2uFZecDPNy --executor docker --description "My Docker Runner" --docker-image "docker:latest" --docker-volumes /var/run/docker.sock:/var/run/docker.sock
+docker exec -i gitlab-runner gitlab-runner register -n --url https://gitlab.com/ --registration-token BNfmr9uzvsXnhfDstAvb --executor docker --description "My Docker Runner" --docker-image "docker:latest" --docker-volumes /var/run/docker.sock:/var/run/docker.sock
 
