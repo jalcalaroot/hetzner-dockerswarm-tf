@@ -1,4 +1,4 @@
-mage: docker:stable
+image: docker:stable
 
 stages:
   - Build image
