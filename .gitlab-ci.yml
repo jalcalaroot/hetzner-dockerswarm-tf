@@ -1,12 +1,19 @@
 image: docker:latest
+variables:
+  REPOSITORY_URL: gparmar8653
+  dc_image_name : docker_cd_demo
+  dc_username: 
+  dc_password:
 services:
   - docker:dind
 before_script:
-  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$dc_username" -p "$dc_password"
 build-master:
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker build -t "$dc_image_name" .
+    - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
+    
+    - docker push "$REPOSITORY_URL/$dc_image_name"
   only:
     - master
