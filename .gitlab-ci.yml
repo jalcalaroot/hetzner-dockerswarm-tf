@@ -2,18 +2,9 @@ image: docker:stable
 
 stages:
   - Build image
-  - Push to Docker Hub
 
 docker build:
   stage: Build image
   script:
   - docker info
-  - docker build -t riot .
-
-docker push:
-  stage: Push to Docker Hub
-  only:
-  - master
-  script:
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push jalcalaroot/test
+  - docker build -t myimage .
