@@ -1,19 +1,19 @@
-image: docker:latest
-variables:
-  REPOSITORY_URL: gparmar8653
-  dc_image_name : docker_cd_demo
-  dc_username: 
-  dc_password:
-services:
-  - docker:dind
-before_script:
-    - docker login -u "$dc_username" -p "$dc_password"
-build-master:
-  stage: build
+image: docker:stable
+
+stages:
+  - Build image
+  - Push to Docker Hub
+
+docker build:
+  stage: Build image
   script:
-    - docker build -t "$dc_image_name" .
-    - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
-    
-    - docker push "$REPOSITORY_URL/$dc_image_name"
+  - docker info
+  - docker build -t riot .
+
+docker push:
+  stage: Push to Docker Hub
   only:
-    - master
+  - master
+  script:
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push angristan/riot
