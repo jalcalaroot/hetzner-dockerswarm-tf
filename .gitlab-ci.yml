@@ -1,17 +1,23 @@
-image: node:latest
 stages:
   - build
   - test
-cache:
-  paths:
-    - node_modules/
-install_dependencies:
+
+build:
   stage: build
   script:
-    - npm install
+    - echo "this is building"
+    - hostname
+    - mkdir builds
+    - touch builds/data.txt
+    - echo "false" > builds/data.txt
   artifacts:
     paths:
-      - node_modules/
-test_with_lab:
+      - builds/
+
+test:
   stage: test
-  script: npm test
+  script:
+    - echo "this is testing"
+    - hostname
+    - test -f builds/data.txt
+    - grep "true" builds/data.txt
