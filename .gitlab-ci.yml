@@ -1,19 +1,19 @@
-image: docker:stable
-
-stages:
-  - Build image
-  - Push to Docker Hub
-
-docker build:
-  stage: Build image
+image: docker:latest
+variables:
+  REPOSITORY_URL: https://hub.docker.com/
+  dc_image_name : ansible1
+  dc_username: jalcalaroot
+  dc_password: admin19226543
+services:
+  - docker:dind
+before_script:
+    - docker login -u "$dc_username" -p "$dc_password"
+build-master:
+  stage: build
   script:
-  - docker info
-  - docker build -t riot .
-
-docker push:
-  stage: Push to Docker Hub
+    - docker build -t "$dc_image_name" .
+    - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
+    
+    - docker push "$REPOSITORY_URL/$dc_image_name"
   only:
-  - master
-  script:
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-  - docker push angristan/riot
+    - master
