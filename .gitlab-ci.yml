@@ -1,21 +1,10 @@
-image: node:latest
+image: docker:stable
 
 stages:
-  - build
-  - test
+  - Build image
 
-cache:
-  paths:
-    - node_modules/
-
-install_dependencies:
-  stage: build
+docker build:
+  stage: Build image
   script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
-
-test_with_lab:
-  stage: test
-  script: npm test
+  - docker info
+  - docker build -t myimage 
