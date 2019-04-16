@@ -9,12 +9,17 @@ services:
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
     - apt-get update -y && apt-get install sshpass -y
-build-master:
+build:
   stage: build
   script:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
-  only:
-    - master
+deploy:
+  stage: deploy
+  environment: production
+  script:
+    - apt-get update -y && apt-get install sshpass -y
+    - ssh root@159.69.187.77
+
     
