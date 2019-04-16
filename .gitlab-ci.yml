@@ -21,7 +21,7 @@ deploy:
   services:
     - docker:dind
   before_script:
-   - apt-get update -y && apt-get install -y sshpass openssh 
+   - apt-get update -y && apt-get install -y openssh-server sshpass
    - mkdir -p ~/.ssh
    - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
    - chmod 600 ~/.ssh/id_rsa
