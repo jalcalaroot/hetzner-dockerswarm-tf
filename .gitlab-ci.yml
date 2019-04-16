@@ -25,6 +25,9 @@ deploy:
     - apt-get install sudo openssh-server sshpass python vim nano wget curl htop zip perl aptitude -y 
     - service ssh start
     - update-rc.d ssh defaults
+    - mkdir -p ~/.ssh
+    - echo -e "$DEPLOY_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-   - ssh root@159.69.187.77
-    
+    - ssh root@159.69.187.77
