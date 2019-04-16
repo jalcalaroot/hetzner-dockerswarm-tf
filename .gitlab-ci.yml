@@ -9,12 +9,6 @@ services:
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
     - apt-get update -y && apt-get install sshpass -y
-    # Run ssh-agent (inside the build environment)
-    - eval $(ssh-agent -s)
-    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.env.gitlab ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 build-master:
   stage: build
   script:
