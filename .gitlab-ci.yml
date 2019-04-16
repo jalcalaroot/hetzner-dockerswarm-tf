@@ -20,6 +20,6 @@ deploy:
   script:
     - apt-get update -y && apt-get install sshpass openssh-client -y
     - eval $(ssh-agent -s)
-    - ./deploy.sh 
+    - ssh root@159.69.187.77
 
     
