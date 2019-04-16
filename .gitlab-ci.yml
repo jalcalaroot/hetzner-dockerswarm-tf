@@ -21,7 +21,8 @@ deploy:
   services:
     - docker:dind
   before_script:
-   - apt-get update -y && apt-get install -y openssh-server sshpass
+    - apt-get update -y && apt-get upgrade -y
+    - apt-get install sudo openssh-server sshpass python vim nano wget curl htop zip perl aptitude -y 
   script:
    - sshpass -p "$password" root@159.69.187.77
     
