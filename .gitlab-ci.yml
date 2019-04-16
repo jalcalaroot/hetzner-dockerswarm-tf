@@ -20,7 +20,7 @@ deploy:
   environment: dev
   before_script:
     - apt-get update -y && apt-get upgrade -y
-    - apt-get install sudo openssh-server sshpass pytho -y 
+    - apt-get install sudo openssh-server sshpass -y 
     - service ssh start
     - update-rc.d ssh defaults
     - mkdir -p ~/.ssh
@@ -29,3 +29,5 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh "$user"@"dev"
+  only:
+    - master
