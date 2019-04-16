@@ -8,7 +8,7 @@ services:
   - docker:dind
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
-    - apt-get update -qq && apt-get install -y -qq sshpass openssh-client
+    - apt-get update -qq && apt-get install -y -qq ssh sshpass 
     - service sshd restart 
 build:
   stage: build
