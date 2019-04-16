@@ -8,7 +8,6 @@ services:
   - docker:dind
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
-    - apt-get update -y && apt-get install ssh sshpass -y
 build:
   stage: build
   script:
@@ -17,8 +16,9 @@ build:
     - docker push "$REPOSITORY_URL/$dc_image_name"
 deploy:
   stage: deploy
-  environment: dev
+  environment: production
   script:
-    - ssh root@159.69.187.77
+    - apt-get update -y && apt-get install sshpass -y
+    - ./deploy.sh 
 
     
