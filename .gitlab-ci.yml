@@ -21,7 +21,7 @@ deploy:
   script:
     - sshpass -V
     - export SSHPASS=password
-    - sshpass -p $SSHPASS ssh root@159.69.187.77
+    - sshpass  -p SSHPASS ssh -o StrictHostKeyChecking=no root@159.69.187.77 <<-'ENDSSH'
 
 
     
