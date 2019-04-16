@@ -29,3 +29,8 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh "$user"@"$dev"
+    - docker login -u "$dc_username" -p "$dc_password"
+    - docker stop "$dc_image_name"
+    - docker rm "$dc_image_name"
+    - docker pull "$REPOSITORY_URL/$dc_image_name"
+    - docker run --name "$dc_image_name" 80:80 -d  "$REPOSITORY_URL/$dc_image_name"
