@@ -1,4 +1,3 @@
-image: gitlab/dind:latest
 variables:
   REPOSITORY_URL: jalcalaroot
   dc_image_name : ansible1
@@ -8,13 +7,14 @@ before_script:
     - docker login -u "$dc_username" -p "$dc_password"
 build:
   stage: build
+  image: gitlab/dind:latest
   script:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
 deploy:
   stage: deploy
-  image: gitlab/dind:latest
+  image: ubuntu:latest
   only:
     - "master"
   environment: production
@@ -22,13 +22,6 @@ deploy:
     - docker:dind
   before_script:
    - apt-get update -y && apt-get install -y openssh-server sshpass
-   - mkdir -p ~/.ssh
-   - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-   - chmod 600 ~/.ssh/id_rsa
-   - eval "$(ssh-agent -s)"
-   - ssh-add ~/.ssh/id_rsa
-   - ssh-keyscan -H $DEPLOYMENT_SERVER_IP >> ~/.ssh/known_hosts
   script:
-   - ssh root@159.69.187.77
-#   - /usr/bin/sshpass -p "$password" root@159.69.187.77
+   - sshpass -p "$password" root@159.69.187.77
     
