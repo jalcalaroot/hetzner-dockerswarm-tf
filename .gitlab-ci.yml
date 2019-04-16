@@ -8,6 +8,8 @@ services:
   - docker:dind
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
+    - apt-get update -qq && apt-get install -y -qq sshpass openssh-client
+    - service sshd restart 
 build:
   stage: build
   script:
@@ -18,8 +20,9 @@ deploy:
   stage: deploy
   environment: production
   script:
-    - apt-get update -y && apt-get install sshpass openssh-client -y
-    - eval $(ssh-agent -s)
-    - ssh root@159.69.187.77
+    - sshpass -V
+    - export SSHPASS=password
+    - sshpass -p $SSHPASS ssh root@159.69.187.77
+
 
     
