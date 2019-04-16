@@ -26,5 +26,5 @@ deploy:
   before_script:
    - apt-get update -y && apt-get install sshpass
   script:
-   - sshpass -p "${password}" scp -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no root@159.69.187.77:~/
+   - sshpass -p "$password" root@159.69.187.77
     
