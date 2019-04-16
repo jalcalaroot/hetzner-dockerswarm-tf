@@ -29,4 +29,9 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh "$user"@"$dev"
-    - ./deploy.sh
+  script:
+	- ssh "$user"@"$dev" "
+	    docker login -u "$dc_username" -p "$dc_password" &&
+		docker ps -a
+		"    
+    
