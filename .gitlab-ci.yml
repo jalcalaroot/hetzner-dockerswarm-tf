@@ -1,14 +1,13 @@
-image: docker:latest
+image: gitlab/dind
 variables:
   REPOSITORY_URL: jalcalaroot
   dc_image_name : ansible1
   dc_username : "$dc_username"
   dc_password : "$dc_password"
-services:
-  - docker:dind
-before_script:
-    - docker login -u "$dc_username" -p "$dc_password"
-    - apt-get update -qq && apt-get install -y -qq ssh sshpass
+stages:
+  - build
+  - deploy
+  
 build:
   stage: build
   script:
@@ -19,9 +18,8 @@ deploy:
   stage: deploy
   environment: production
   script:
-    - sshpass -V
-    - export SSHPASS=password
-    - sshpass  -p SSHPASS ssh -o StrictHostKeyChecking=no root@159.69.187.77 <<-'ENDSSH'
+    - apt-get update -y && apt-get install sshpass -y
+    - sshpass  -p "$password" ssh -o StrictHostKeyChecking=no root@159.69.187.77 <<-'ENDSSH'
 
 
     
