@@ -1,4 +1,4 @@
-image: gitlab/dind
+image: gitlab/dind:latest
 variables:
   REPOSITORY_URL: jalcalaroot
   dc_image_name : ansible1
@@ -8,13 +8,23 @@ services:
   - docker:dind
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
-    - apt-get update -qq && apt-get install -y -qq ssh sshpass
+    - apt-get update -qq && apt-get install -y -qq ssh sshpass 
 build:
   stage: build
   script:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
-
-
+deploy:
+  stage: deploy
+  image: gitlab/dind:latest
+  only:
+    - "master"
+  environment: production
+  services:
+    - docker:dind
+  before_script:
+   - apt-get update -y && apt-get install sshpass
+  script:
+   - sshpass -p "${password}" scp -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no root@159.69.187.77:~/
     
