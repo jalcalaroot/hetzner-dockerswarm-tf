@@ -12,8 +12,8 @@ build:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
-deploy:
-  stage: deploy
+deploy-dev:
+  stage: deploy-dev
   image: ubuntu:latest
   only:
     - "master"
@@ -28,6 +28,4 @@ deploy:
     - chmod 600 ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - ssh "$user"@"dev"
-  only:
-    - master
+    - ssh "$user"@"$dev"
