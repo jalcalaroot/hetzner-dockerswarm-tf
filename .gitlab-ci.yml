@@ -12,8 +12,8 @@ build:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
-deploy-dev:
-  stage: deploy-dev
+deploy:
+  stage: deploy
   image: ubuntu:latest
   only:
     - "master"
