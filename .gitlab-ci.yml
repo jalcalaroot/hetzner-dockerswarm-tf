@@ -6,7 +6,6 @@ variables:
   dc_password : "$dc_password"
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
-    - apt-get update -qq && apt-get install -y -qq ssh sshpass 
 build:
   stage: build
   script:
@@ -22,7 +21,7 @@ deploy:
   services:
     - docker:dind
   before_script:
-   - apt-get update -y && apt-get install sshpass ssh
+   - apt-get update -y && apt-get install -y sshpass openssh 
    - mkdir -p ~/.ssh
    - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
    - chmod 600 ~/.ssh/id_rsa
