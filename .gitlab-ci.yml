@@ -20,7 +20,7 @@ deploy:
   environment: dev
   before_script:
     - apt-get update -y && apt-get upgrade -y
-    - apt-get install sudo openssh-server sshpass python vim nano wget curl htop zip perl aptitude -y 
+    - apt-get install sudo openssh-server sshpass pytho -y 
     - service ssh start
     - update-rc.d ssh defaults
     - mkdir -p ~/.ssh
@@ -28,4 +28,4 @@ deploy:
     - chmod 600 ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - ssh "$user"@159.69.187.77
+    - ssh "$user"@"dev"
