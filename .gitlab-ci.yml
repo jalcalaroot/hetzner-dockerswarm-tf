@@ -30,6 +30,6 @@ deploy:
   script:
 	- ssh "$user"@"$dev" "
 	    docker login -u "$dc_username" -p "$dc_password" &&
-		docker ps -a
-		"    
-    
+	      docker ps -a
+	      pwd
+	      "
