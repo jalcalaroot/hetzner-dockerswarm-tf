@@ -8,12 +8,24 @@ services:
   - docker:dind
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    # Run ssh-agent (inside the build environment)
+    - eval $(ssh-agent -s)
+    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.env.gitlab ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 build-master:
   stage: build
   script:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
-    
     - docker push "$REPOSITORY_URL/$dc_image_name"
+deploy-master:
+  stage: deploy
+  script:
+    - ssh root@159.69.187.77
+   echo "here we will do work in the production server"
   only:
     - master
+    
