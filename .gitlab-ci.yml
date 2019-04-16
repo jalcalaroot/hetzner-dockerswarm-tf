@@ -21,11 +21,6 @@ build-master:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
-deploy-master:
-  stage: deploy
-  script:
-    - sshpass  -p "$password" ssh -o StrictHostKeyChecking=no root@159.69.187.77 <<-'ENDSSH' echo "here we will do work in the production server"
-ENDSSH
   only:
     - master
     
