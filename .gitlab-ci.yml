@@ -6,18 +6,15 @@ variables:
   dc_password : "$dc_password"
 services:
   - docker:dind
+before_script:
+    - docker login -u "$dc_username" -p "$dc_password"
+    - apt-get update -qq && apt-get install -y -qq ssh sshpass
 build:
   stage: build
   script:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
-deploy:
-  stage: deploy
-  environment: production
-  script:
-    - apt-get update -y && apt-get install sshpass -y
-    - sshpass  -p "$password" ssh -o StrictHostKeyChecking=no root@159.69.187.77 <<-'ENDSSH'
 
 
     
