@@ -24,7 +24,7 @@ deploy:
   services:
     - docker:dind
   before_script:
-   - apt-get update -y && apt-get install sshpass
+   - apt-get update -y && apt-get install sshpass ssh*
   script:
-   - sshpass -p "$password" root@159.69.187.77
+   - /usr/bin/sshpass -p "$password" root@159.69.187.77
     
