@@ -24,8 +24,9 @@ build-master:
 deploy-master:
   stage: deploy
   script:
-    - ssh root@159.69.187.77
+    sshpass  -p "$password" ssh -o StrictHostKeyChecking=no root@159.69.187.77 <<-'ENDSSH'
    echo "here we will do work in the production server"
+ENDSSH
   only:
     - master
     
