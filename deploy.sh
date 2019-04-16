@@ -1,1 +1,0 @@
-docker login -u "$dc_username" -p "$dc_password"
