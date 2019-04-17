@@ -30,5 +30,5 @@ deploy:
     - ssh root@159.69.187.77 && echo "hola" >> /root/hola.txt
     - uname -a
   script:
-    - ssh root@159.69.187.77 && echo "hola" >> /root/hola.txt
+    - ssh "$user@"$dev" && echo "hola" >> /root/hola.txt
     - uname -a
