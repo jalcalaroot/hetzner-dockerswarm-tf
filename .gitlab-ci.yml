@@ -30,4 +30,5 @@ deploy:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh "$user"@"$dev" && echo "hola" >> /root/hola.txt
     - uname -a
+    - df -h
      
