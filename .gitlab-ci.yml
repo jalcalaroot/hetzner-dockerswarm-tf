@@ -32,5 +32,3 @@ deploy:
   script:
     - ssh "$user"@"$dev" && echo "hola" >> /root/hola.txt
     - uname -a
-    - export SSHPASS=$password
-    - sshpass -e scp -o stricthostkeychecking=no -r /root/hola.txt "$user"@"$dev":/root/
