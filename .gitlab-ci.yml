@@ -3,6 +3,11 @@ variables:
   dc_image_name : ansible1
   dc_username : "$dc_username"
   dc_password : "$dc_password"
+  
+stages:
+  - build
+  - deploy
+  
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
 build:
