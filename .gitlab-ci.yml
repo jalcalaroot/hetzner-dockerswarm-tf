@@ -1,31 +1,18 @@
+ image: docker:latest
 variables:
   REPOSITORY_URL: jalcalaroot
   dc_image_name : ansible1
   dc_username : "$dc_username"
   dc_password : "$dc_password"
+services:
+  - docker:dind
 before_script:
     - docker login -u "$dc_username" -p "$dc_password"
+    - apt-get update -qq && apt-get install -y -qq ssh sshpass
 build:
   stage: build
-  image: gitlab/dind:latest
   script:
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
-    - docker push "$REPOSITORY_URL/$dc_image_name"
-deploy:
-  stage: deploy
-  image: ubuntu:16.04
-  only:
-    - "master"
-  environment: dev
-  services:
-    - docker:dind
-  before_script:
-    - apt-get update -y && apt-get upgrade -y
-    - apt-get install sudo openssh-server sshpass -y 
-    - service ssh start
-    - update-rc.d ssh defaults
-    - mkdir -p ~/.ssh
-    - echo -e "$DEPLOY_KEY" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - docker push "$REPOSITORY_URL/$dc_image_name
+
