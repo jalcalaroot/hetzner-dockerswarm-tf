@@ -14,7 +14,7 @@ build:
     - docker push "$REPOSITORY_URL/$dc_image_name"
 deploy:
   stage: deploy
-  image: ubuntu:latest
+  image: ubuntu:16.04
   only:
     - "master"
   environment: production
@@ -22,7 +22,7 @@ deploy:
     - docker:dind
   before_script:
     - apt-get update -y && apt-get upgrade -y
-    - apt-get install sudo openssh-server sshpass python vim nano wget curl htop zip perl aptitude -y 
+    - apt-get install sudo openssh-server sshpass -y 
     - service ssh start
     - update-rc.d ssh defaults
     - mkdir -p ~/.ssh
