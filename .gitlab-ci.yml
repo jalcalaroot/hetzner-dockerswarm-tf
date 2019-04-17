@@ -14,7 +14,7 @@ build:
     - docker push "$REPOSITORY_URL/$dc_image_name"
 deploy:
   stage: deploy
-  image: gitlab/dind:latest
+  image: ubuntu:16.04
   only:
     - "master"
   environment: production
