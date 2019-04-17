@@ -43,4 +43,15 @@ resource "hcloud_server" "prod1" {
 output "public_ip_prod1" {
   value = "${hcloud_server.prod1.ipv4_address}"
 }
+###----------------------------
+resource "hcloud_server" "runners" {
+  name        = "runners"
+  image       = "ubuntu-16.04"
+  server_type = "cx11"
+  ssh_keys    = ["${hcloud_ssh_key.newmain.name}"]
+  user_data    = "${file("runners.sh")}"
+}
+output "public_ip_runners" {
+  value = "${hcloud_server.runners.ipv4_address}"
+}
 
