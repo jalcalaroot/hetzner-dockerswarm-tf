@@ -4,5 +4,5 @@ RUN apt-get -y update; \
     apt-get -y install apt-utils \
     vim \
     htop;
-RUN apt-get -y install dstat php apache2
+RUN apt-get -y install dstat php
 CMD ["bash"]
