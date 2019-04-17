@@ -1,8 +1,5 @@
 FROM ubuntu:latest
 RUN apt-get -y update; \
-    apt-get -y upgrade; \
-    apt-get -y install apt-utils \
-    vim \
-    htop;
-RUN apt-get -y install dstat
+    apt-get -y upgrade; 
+RUN apt-get -y install htop
 CMD ["bash"]
