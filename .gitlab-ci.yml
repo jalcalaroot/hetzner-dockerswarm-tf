@@ -12,9 +12,8 @@ stages:
 build:
   stage: build
   image: docker:latest
-  before_script:
-    - docker login -u "$dc_username" -p "$dc_password"
   script:
+    - docker login -u "$dc_username" -p "$dc_password"
     - docker build -t "$dc_image_name" .
     - docker tag "$dc_image_name" "$REPOSITORY_URL/$dc_image_name"
     - docker push "$REPOSITORY_URL/$dc_image_name"
