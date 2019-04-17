@@ -27,8 +27,6 @@ deploy:
     - echo -e "$DEPLOY_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ssh root@159.69.187.77 && echo "hola" >> /root/hola.txt
-    - uname -a
   script:
     - ssh "$user@"$dev" && echo "hola" >> /root/hola.txt
     - uname -a
