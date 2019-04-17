@@ -14,7 +14,7 @@ build:
     - docker push "$REPOSITORY_URL/$dc_image_name"
 deploy:
   stage: deploy
-  image: ubuntu:latest
+  image: gitlab/dind:latest
   only:
     - "master"
   environment: dev
