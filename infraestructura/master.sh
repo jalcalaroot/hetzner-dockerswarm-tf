@@ -28,3 +28,54 @@ docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain
 #portainer 9000
 curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o /root/portainer-agent-stack.yml
 sudo docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer
+
+#Wordpress HA
+cat > /root/wordpress.yml <<- "EOF"
+aversion: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - net
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - net
+    ports:
+      - "8001:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_PASSWORD: wordpress
+
+volumes:
+ db_data:
+ wordpress_data:
+
+networks:
+  net:
+    external: true
+EOF
+
+docker stack deploy --compose-file=/root/wordpress.yml wordpress
