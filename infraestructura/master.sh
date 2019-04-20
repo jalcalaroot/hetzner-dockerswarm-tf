@@ -25,6 +25,6 @@ chmod +x /usr/local/bin/docker-compose
 docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain/viswarm
 
 
-#portainer 8080
-curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o portainer-agent-stack.yml
-sudo docker stack deploy --compose-file=portainer-agent-stack.yml portainer
+#portainer 9000
+curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o /root/portainer-agent-stack.yml
+sudo docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer
