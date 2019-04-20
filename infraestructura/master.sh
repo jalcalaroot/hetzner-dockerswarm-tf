@@ -21,10 +21,6 @@ apt-get -y install docker-ce
 curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
-#docker swarm visua
-docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain/viswarm
-
-
 #portainer 9000
 curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o /root/portainer-agent-stack.yml
 sudo docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer
@@ -78,4 +74,16 @@ networks:
     external: true
 EOF
 
-docker stack deploy --compose-file=/root/wordpress.yml wordpress
+
+echo "docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
+chmog 7500 /root/deploy-wordpress.sh
+
+#docker swarm visua
+docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain/viswarm
+
+
+
+
+
+
+
