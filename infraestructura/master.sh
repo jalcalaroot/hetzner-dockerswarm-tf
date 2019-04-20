@@ -23,7 +23,8 @@ chmod +x /usr/local/bin/docker-compose
 
 #portainer 9000
 curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o /root/portainer-agent-stack.yml
-echo "docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer" >> deploy-portainer.sh 
+chmod 755 /root/portainer-agent-stack.yml
+echo "docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer" >> /root/deploy-portainer.sh 
 
 #Wordpress HA
 cat > /root/wordpress.yml <<- "EOF"
@@ -76,7 +77,7 @@ EOF
 
 
 echo "docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
-chmod 7500 /root/deploy-wordpress.sh
+chmod 755 /root/deploy-wordpress.sh
 
 #docker swarm visua
 docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain/viswarm
