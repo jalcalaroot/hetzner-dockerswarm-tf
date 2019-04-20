@@ -16,7 +16,7 @@ resource "hcloud_server" "master" {
   image       = "ubuntu-16.04"
   server_type = "cx11"
   ssh_keys    = ["${hcloud_ssh_key.newmain.name}"]
-  user_data    = "${file("deploy.sh")}"
+  user_data    = "${file("master.sh")}"
 }
 output "public_ip_master" {
   value = "${hcloud_server.master.ipv4_address}"
@@ -27,7 +27,7 @@ resource "hcloud_server" "node1" {
   image       = "ubuntu-16.04"
   server_type = "cx11"
   ssh_keys    = ["${hcloud_ssh_key.newmain.name}"]
-  user_data    = "${file("deploy.sh")}"
+  user_data    = "${file("nodes.sh")}"
 }
 output "public_ip_node1" {
   value = "${hcloud_server.node1.ipv4_address}"
@@ -38,7 +38,7 @@ resource "hcloud_server" "node2" {
   image       = "ubuntu-16.04"
   server_type = "cx11"
   ssh_keys    = ["${hcloud_ssh_key.newmain.name}"]
-  user_data    = "${file("deploy.sh")}"
+  user_data    = "${file("nodes.sh")}"
 }
 output "public_ip_node2" {
   value = "${hcloud_server.node2.ipv4_address}"
@@ -49,7 +49,7 @@ resource "hcloud_server" "node3" {
   image       = "ubuntu-16.04"
   server_type = "cx11"
   ssh_keys    = ["${hcloud_ssh_key.newmain.name}"]
-  user_data    = "${file("deploy.sh")}"
+  user_data    = "${file("nodes.sh")}"
 }
 output "public_ip_node3" {
   value = "${hcloud_server.node3.ipv4_address}"
