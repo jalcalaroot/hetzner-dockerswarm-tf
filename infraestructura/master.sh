@@ -21,12 +21,10 @@ apt-get -y install docker-ce
 curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
-
-# deploy dockerui
-
-docker run --restart unless-stopped -d -p 9000:9000 -v /var/run/docker.sock:/docker.sock --name dockerui abh1nav/dockerui:latest -e="/docker.sock"
-
-sudo chmod +x /usr/bin/docker-enter
+#docker swarm visua
+docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain/viswarm
 
 
-
+#portainer 8080
+curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o portainer-agent-stack.yml
+sudo docker stack deploy --compose-file=portainer-agent-stack.yml portainer
