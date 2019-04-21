@@ -25,10 +25,11 @@ chmod +x /usr/local/bin/docker-compose
 curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o /root/portainer-agent-stack.yml
 chmod 755 /root/portainer-agent-stack.yml
 echo "docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer" >> /root/deploy-portainer.sh 
+chmod 755 /root/deploy-portainer.sh
 
 #Wordpress HA
 cat > /root/wordpress.yml <<- "EOF"
-aversion: '3'
+version: '3'
 
 services:
   db:
