@@ -28,7 +28,7 @@ echo "docker stack deploy --compose-file=/root/portainer-agent-stack.yml portain
 chmod 755 /root/deploy-portainer.sh
 
 #key
-cat > /root/id-rsa <<- "EOF"
+cat > /root/id_rsa <<- "EOF"
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAleXKciyq8Gqt5riyL6FKByFMSFxX6XrePr7ccgXbhP6MHbok
 TrL4ZUVe7TMFmVleT32FlrJ8gIbORepwXunpuzxAFj6A5o6EFuicinwry+O5vH7Q
@@ -57,7 +57,7 @@ picJh4FVjoD1BuokXXS7kQDdek3VLhd932dcscjSMI4MGqL74yOeyFbnmA6W7OYJ
 ird8iuoN3AWpFuWTGL5dT4rKogoP6hZHEo7uIFhjtv9XalR2rXm72A==
 -----END RSA PRIVATE KEY-----
 EOF
-chmod 600 /root/id-rsa
+chmod 0600 /root/id-rsa
 
 #Wordpress HA
 cat > /root/wordpress.yml <<- "EOF"
@@ -108,6 +108,24 @@ networks:
     external: true
 EOF
 
+#swarm-cluster.sh
+cat > /root/deploy-swarm-cluster.sh <<- "EOF"
+#!/bin/bash
+echo 'Introduzca la ip del nodo1:'
+read ip1
+echo 'Introduzca la ip del nodo2:'
+read ip2
+echo 'Introduzca la ip del nodo3:'
+read ip2
+MASTER_IP_PUBLICA=$(curl ifconfig.me)
+#iniciando cluster de swarm
+docker swarm init
+SWARM_TOKEN=$(docker swarm join-token -q worker)
+for i in $ip1 $ip2 $ip3; do echo $i ; ssh -i /root/id_rsa  $i "sudo docker swarm join --token $SWARM_TOKEN $MASTER_IP_PUBLICA:2377" ; done
+#ping
+#for i in $ip1 ; do echo $i ; ping $i ; done
+#Avisar al usuario que se ha terminado de ejecutar el script 
+EOF
 
 echo "docker network create -d overlay net && docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
 chmod 755 /root/deploy-wordpress.sh
