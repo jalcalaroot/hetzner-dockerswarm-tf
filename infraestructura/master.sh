@@ -57,7 +57,9 @@ picJh4FVjoD1BuokXXS7kQDdek3VLhd932dcscjSMI4MGqL74yOeyFbnmA6W7OYJ
 ird8iuoN3AWpFuWTGL5dT4rKogoP6hZHEo7uIFhjtv9XalR2rXm72A==
 -----END RSA PRIVATE KEY-----
 EOF
-chmod 0600 /root/id-rsa
+
+chmod 0600 /root/id_rsa
+
 
 #Wordpress HA
 cat > /root/wordpress.yml <<- "EOF"
@@ -129,6 +131,7 @@ EOF
 chmod 755 /root/deploy-swarm-cluster.sh
 echo "docker network create -d overlay net && docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
 chmod 755 /root/deploy-wordpress.sh
+chmod 0600 /root/id_rsa
 
 #docker swarm visua
 docker run -p 9009:9009 -v /var/run/docker.sock:/var/run/docker.sock moimhossain/viswarm
