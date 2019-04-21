@@ -27,6 +27,38 @@ chmod 755 /root/portainer-agent-stack.yml
 echo "docker stack deploy --compose-file=/root/portainer-agent-stack.yml portainer" >> /root/deploy-portainer.sh 
 chmod 755 /root/deploy-portainer.sh
 
+#key
+cat > /root/id-rsa <<- "EOF"
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAleXKciyq8Gqt5riyL6FKByFMSFxX6XrePr7ccgXbhP6MHbok
+TrL4ZUVe7TMFmVleT32FlrJ8gIbORepwXunpuzxAFj6A5o6EFuicinwry+O5vH7Q
+3X5kDxpCB3nkiWKgS8wZKoXKfWXbztyrefeKnaRXV7nlMZjZF0Bmf9nLt1xh2jDn
+Wxi4BKpxhhI+9Swyh93a9yWzk7QggNH5M6PJXrPTjdaX48sTCWFPNs5vbIFHNyf7
+S43bhp84JdpDe975+uu/+5AWnXFbT9dzbl64ngI0RGYVPzlAuPrqadaovtiLg5ET
+RCBwrdLo3r9n+e8iENMTkPVNdyt+irJoNiEd3wIDAQABAoIBAG6sj2DlYgDIg0WK
+sOVB7Op+x1fV9oLI2TbyrMjzUjVLzCBWw1/n/EaphYEU3tluhpeiUfQGLK6o2bv9
+cKJjitNXlOnXlEymhRh0/r+xFpUfuo9WAtjG7RHJjV7/vKFDVJ8iPqKKzgrwHe8K
+NwGCp7HlGSgIdRS9iewE/KkBIcxrI/oy1RhxGftuvs1FuggSZhem6QFuVuLrd9xk
+svGgVfOue2YYqjdn6FvhLOPQFqtJYkDuVR/4iA5yBbyrle8M7xExhondxq/oimwc
+ph9wPDpISkLv1BzQUZxGjrRm6kGy6cWKdjNuITPMnSiomhQXE7gNmnuOH2t5MCB2
+VJmmrMECgYEAxia1+VWyCAA1hHQEdCPMxg5+UBT7HJaahwh4M4ZfElodVgrJdyGg
+4MBco821exXOBDkpyHu/aAbNNPL7M7HButk3z0A0P5C/0+k/q3iXTACdfyTNO8GC
++5rWzKk69FJLYYsNI3HsfdRyVwgF1K0GevePGqn5n9n48fTa1CPWS6cCgYEAwai8
+bkSvlCo/q4J8eYC+AfQb7PKXfTo/GwFPV7n9ohEyweJYOzCUDSWFX9siwrdpWtnY
+PmAVAYu+sLx7ivt4fLPeGNZscxHyH/+Z3UUgAuVdEKeC417VfiAxY+6V1CoIPxwG
+QWRDX2FV0G4W3Yi1D2QWm60kt52IaBfD9JJOgwkCgYEAs57DtpGIINiPqtHAd8c8
+CQ16Uv2x4+hhi6aRz6Mu62Pk0+pTVjqVqya004fVyw2pAwsOZT5H8/S2cBkSvXmV
+M9tUS/rXYgfE3EPEA5v9ClhEbMzffhucsJdbv4podrFiw7lY35iV2DqMq3gKUQ/H
+oBBpGLKcJdthX3OmKkeSKmECgYEAgUF8MyUJA52HTZQUPIyfRXKGyQnJ7r1XrVCc
+gnMTRH6yIBJQzYDI8FVgxe/fLZN5cDgCSu+aVaPOLOxAkSzy6FitHmrPi6Yosw7I
+xZUDnqs0CI+lntiHKl2WWZq+yhMb2fN8gVzIUvsGac1w2YALSTCGnnVcEmnEx6VF
+FxIn8PECgYA6dSMGnfeB1v9r/05S6oKfgR/vq1r6yxyqjOasKxa/FOa3dAJcbRuy
+picJh4FVjoD1BuokXXS7kQDdek3VLhd932dcscjSMI4MGqL74yOeyFbnmA6W7OYJ
+ird8iuoN3AWpFuWTGL5dT4rKogoP6hZHEo7uIFhjtv9XalR2rXm72A==
+-----END RSA PRIVATE KEY-----
+EOF
+chmod 600 /root/id-rsa
+
 #Wordpress HA
 cat > /root/wordpress.yml <<- "EOF"
 version: '3'
