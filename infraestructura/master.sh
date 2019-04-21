@@ -53,7 +53,7 @@ services:
       - db
     image: wordpress:latest
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
         max_attempts: 3
