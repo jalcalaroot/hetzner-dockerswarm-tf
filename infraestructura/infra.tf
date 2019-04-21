@@ -6,10 +6,10 @@ provider "hcloud" {
 }
 ###----------------------------
 # crear key
-#resource "hcloud_ssh_key" "main" {
-# name       = "main"
-# public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCV5cpyLKrwaq3muLIvoUoHIUxIXFfpet4+vtxyBduE/owduiROsvhlRV7tMwWZWV5PfYWWsnyAhs5F6nBe6em7PEAWPoDmjoQW6JyKfCvL47m8ftDdfmQPGkIHeeSJYqBLzBkqhcp9ZdvO3Kt594qdpFdXueUxmNkXQGZ/2cu3XGHaMOdbGLgEqnGGEj71LDKH3dr3JbOTtCCA0fkzo8les9ON1pfjyxMJYU82zm9sgUc3J/tLjduGnzgl2kN73vn667/7kBadcVtP13NuXrieAjREZhU/OUC4+upp1qi+2IuDkRNEIHCt0ujev2f57yIQ0xOQ9U13K36Ksmg2IR3f jalcalaroot@jalcalaroot-ThinkPad-T450"
-#}
+resource "hcloud_ssh_key" "main" {
+ name       = "main"
+ public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCV5cpyLKrwaq3muLIvoUoHIUxIXFfpet4+vtxyBduE/owduiROsvhlRV7tMwWZWV5PfYWWsnyAhs5F6nBe6em7PEAWPoDmjoQW6JyKfCvL47m8ftDdfmQPGkIHeeSJYqBLzBkqhcp9ZdvO3Kt594qdpFdXueUxmNkXQGZ/2cu3XGHaMOdbGLgEqnGGEj71LDKH3dr3JbOTtCCA0fkzo8les9ON1pfjyxMJYU82zm9sgUc3J/tLjduGnzgl2kN73vn667/7kBadcVtP13NuXrieAjREZhU/OUC4+upp1qi+2IuDkRNEIHCt0ujev2f57yIQ0xOQ9U13K36Ksmg2IR3f jalcalaroot@jalcalaroot-ThinkPad-T450"
+}
 ###----------------------------
 resource "hcloud_server" "master" {
   name        = "master"

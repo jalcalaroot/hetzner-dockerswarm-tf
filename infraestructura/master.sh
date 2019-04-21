@@ -77,7 +77,7 @@ networks:
 EOF
 
 
-echo "docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
+echo "docker network create -d overlay net && docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
 chmod 755 /root/deploy-wordpress.sh
 
 #docker swarm visua
