@@ -43,8 +43,8 @@ resource "hcloud_server" "node3" {
   user_data    = "${file("nodes.sh")}"
 }
 ###----------------------------
-resource "hcloud_server" "runners1" {
-  name        = "runners1"
+resource "hcloud_server" "runner" {
+  name        = "runner"
   image       = "ubuntu-16.04"
   server_type = "cx11"
   ssh_keys    = ["${hcloud_ssh_key.main.name}"]

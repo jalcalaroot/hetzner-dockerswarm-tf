@@ -10,6 +10,6 @@ output "public_ip_node2" {
 output "public_ip_node3" {
   value = "${hcloud_server.node3.ipv4_address}"
 }
-output "public_ip_runners1" {
-  value = "${hcloud_server.runners1.ipv4_address}"
+output "public_ip_runner" {
+  value = "${hcloud_server.runner.ipv4_address}"
 }
