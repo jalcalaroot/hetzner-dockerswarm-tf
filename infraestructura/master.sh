@@ -116,7 +116,7 @@ read ip1
 echo 'Introduzca la ip del nodo2:'
 read ip2
 echo 'Introduzca la ip del nodo3:'
-read ip2
+read ip3
 MASTER_IP_PUBLICA=$(curl ifconfig.me)
 #iniciando cluster de swarm
 docker swarm init
@@ -126,7 +126,7 @@ for i in $ip1 $ip2 $ip3; do echo $i ; ssh -i /root/id_rsa  $i "sudo docker swarm
 #for i in $ip1 ; do echo $i ; ping $i ; done
 #Avisar al usuario que se ha terminado de ejecutar el script 
 EOF
-
+chmod 755 /root/deploy-swarm-cluster.sh
 echo "docker network create -d overlay net && docker stack deploy --compose-file=/root/wordpress.yml wordpress" >> /root/deploy-wordpress.sh 
 chmod 755 /root/deploy-wordpress.sh
 
