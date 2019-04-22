@@ -1,10 +1,7 @@
 deploy-to-swarm:
 image: gitlab/dind
-
 stages:
   - build
-  - deploy
-
 variables:
   REPOSITORY_URL: jalcalaroot
   dc_image_name : ansible1
