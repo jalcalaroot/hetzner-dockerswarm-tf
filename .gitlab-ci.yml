@@ -1,8 +1,5 @@
 deploy-to-swarm:
   stage: deploy
-  variables:
-    DOCKER_HOST: tcp://116.203.157.99:2377
-    SERVICE_NAME: ansible1
   image: docker:latest
   script:
   - docker login -u "$dc_username" -p "$dc_password"
